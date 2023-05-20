@@ -8,6 +8,7 @@ packages = [{include = "top_10_price"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+scrapy = "^2.9.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -19,3 +20,17 @@ pytest-cov = "^4.0.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = "--doctest-modules" 
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.taskipy.tasks]
+lint = "blue . && isort ."
+docs = "mkdocs serve"
+test = "pytest test -vv && coverage report -m"
+post_test = "coverage html"
